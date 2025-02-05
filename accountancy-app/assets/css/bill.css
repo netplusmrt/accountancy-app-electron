@@ -1,0 +1,321 @@
+﻿.bill {
+    font-size: 14px;
+    font-family: -apple-system,
+    BlinkMacSystemFont,
+    Roboto,
+    Oxygen-Sans,
+    Ubuntu,
+    Cantarell,
+    Helvetica,
+    sans-serif;
+}
+
+.bill table {
+    width: 100%;
+    height: auto;
+    background: #fff;
+}
+
+.bill table td, .bill table th {
+    border: 1px solid black;
+    padding: 5px;
+}
+.bill label, .bill h4{
+    font-size: 1em;
+}
+.bill textarea {
+    color: #000;
+    font-size: 1em;
+    font-weight: bold;
+    border: 0;
+    overflow: hidden;
+    resize: none;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0);
+}
+
+.bill span.textarea {
+    font-size: .85em;
+}
+
+/* input[type='text'] {
+    font-family: Arial;
+    color: #000;
+    font-size: 1em;
+    font-weight: bold;
+    border: 0;
+    overflow: hidden;
+    resize: none;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0);
+} */
+
+.bill input[type='text'].percent{
+    font-size: 1em;
+    text-align:right;
+    border: 0;
+    overflow: hidden;
+    resize: none;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    width:20px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0);
+}
+
+.bill input[type='text']:hover{
+    webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(82,168,236,0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(82,168,236,0.6);
+    background-color: #EEFF88;
+}
+
+.bill input[type='text']:focus {
+    webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(82,168,236,0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(82,168,236,0.6);
+    background-color: #EEFF88;
+}
+
+.bill textarea:hover,.bill textarea:focus {
+    background-color: #EEFF88;
+}
+
+.bill textarea {
+    font-size: inherit;
+}
+
+.bill .no-border {
+    border: none !important;
+}
+
+.bill .no-padding {
+    padding: 0px !important;
+}
+
+.bill .no-padding-left {
+    padding-left: 0px !important;
+}
+
+.bill .no-padding-right {
+    padding-right: 0px !important;
+}
+
+.bill .input-dropdown {
+    width: 100%;
+}
+
+.bill td {
+    padding: 0;
+    vertical-align: top;
+}
+
+.bill .width-100per {
+    width: 100%;
+}
+
+.bill .border {
+    border: 1px solid #ccc;
+}
+
+.bill .header h2 {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    font-size: 1.2em;
+    color: #0A73C3;
+}
+
+.bill .header h3 {
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 1em;
+    color: #666666;
+}
+
+.bill .np1 {
+    color: #666;
+    font-size: 1em;
+    margin: -18px 18px 0;
+}
+
+.bill .mp1 {
+    float: right;
+    margin: 0 22px 0 0;
+}
+
+.bill .header_sub {
+    width: 960px;
+    margin: 5px 0 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.bill .header_sub h2 {
+    padding: 20px;
+    font-size: 1.2em;
+    color: #0A73C3;
+    margin: -15px 3px 0 0;
+    height: 10px;
+}
+
+.bill #f1 {
+    padding-top: 10px;
+}
+
+.bill #ip1 {
+    width: 100%;
+    text-align: justify;
+    font-size: 1em;
+    color: #333;
+}
+
+.bill #ip1 h3 {
+    font-size: 1em;
+}
+
+.bill .im1 {
+    float: right;
+    margin: -40px 0 0 0;
+    font-size: .8em;
+}
+
+.bill .alfin {
+    margin-left: 18px;
+    width: 300px;
+    color: #2b2b2b;
+    width: 400px;
+    font-size: 1em;
+    background: url("/images/bg.widget.png") repeat scroll;
+    border: 0.3px solid #b6b6b6;
+}
+
+.bill .p th {
+    font-size: .8em;
+    width: 140px;
+}
+
+.bill .prdt tr {
+    background: #fff;
+}
+
+.bill .espaco {
+    height: 5px;
+}
+
+.bill #borderrightCF {
+    border-right: 1px solid #ccc;
+}
+
+.bill .alfin {
+    padding: 10px 20px 10px;
+    font-size: 1em;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.bill .alrsp {
+    margin: -18px 0px 0;
+    font-size: 1em;
+}
+
+.bill .alrsp span {
+    color: #000;
+    text-decoration: underline;
+    margin: 0 5px;
+}
+
+.bill .albr {
+    padding: 10px 0 0 0;
+}
+
+.bill .iwg {
+    font-size: .7em;
+    color: #0A73C3;
+    width: 200px;
+    text-align: justify;
+}
+
+.bill .tp01 {
+    border-collapse: collapse;
+}
+
+.bill .tp01 th {
+    color: white;
+    border: 1px solid #e4e4e4;
+}
+
+.bill .tp01 td, .bill .myTable th {
+    padding: 5px;
+    border: 1px solid #e4e4e4;
+}
+
+.bill .auto-style1 {
+    height: 30px;
+    width: 566px;
+}
+
+.bill .auto-style3 {
+    width: 609px;
+}
+
+.bill .widget {
+    width: 1000px;
+}
+
+.bill .ibox {
+    width: 1000px;
+    margin-bottom: 0px;
+}
+
+.bill td.balance {
+    background: #eee;
+}
+
+.bill td .widget {
+    width: 100%;
+}
+
+.bill td.total-line {
+    text-align: right;
+}
+
+.bill select {
+    width: 100%;
+}
+
+.bill pre {
+    background-color: #fff;
+    border: none;
+    font-size: 1em;
+    font-family: inherit;
+    line-height: normal;
+    padding: 0px;
+    text-align: right;
+}
+
+.bill .mat-form-field-wrapper{
+    padding: 0;
+  }
+
+.bill .mat-form-field-appearance-legacy .bill .mat-form-field-wrapper{
+    color: red;
+}
+
+.bill .bill-copy{
+    background: #dee2e6;
+    padding: 0 10px 0 10px;
+    text-align-last: center;
+}
+
+.bill .form-control{
+    font-size: 1em;
+}
+
+.footer-message{
+    font-size: 18px;
+    font-weight: bold;
+}
