@@ -7,27 +7,24 @@
 
 const ipcRenderer = require('electron').ipcRenderer
 
-ipcRenderer.on('downloadStart', function (event) {
-    // document.getElementById("bar").style.display = "block";
-});
+// ipcRenderer.on('downloadStart', function (event) {
+//     // document.getElementById("bar").style.display = "block";
+// });
 
-ipcRenderer.on('progress', function (event, percentage) {
-    // console.log(percentage);
-    // document.getElementById("bar").style.width = (percentage * 100) + "%";
-    // document.getElementById("bar").innerHTML = "Downloading " + parseInt(percentage * 100) + "%";
-});
 
-ipcRenderer.on('downloadComplete', function (event) {
-    // document.getElementById("bar").style.display = "none";
-});
 
-ipcRenderer.on('store-data', function (event,store) {
-    // console.log(store);
-});
+// ipcRenderer.on('downloadComplete', function (event) {
+//     // document.getElementById("bar").style.display = "none";
+// });
+
+// ipcRenderer.on('store-data', function (event,store) {
+//     // console.log(store);
+// });
 
 ipcRenderer.on('update_available', () => {
     console.log('Update available. Downloading...');
     // Notify the user
+    document.getElementById("bar").style.display = "flex";
 });
 
 ipcRenderer.on('update_downloaded', () => {
@@ -37,6 +34,12 @@ ipcRenderer.on('update_downloaded', () => {
     if (result) {
         ipcRenderer.send('restart_app');
     }
+});
+
+ipcRenderer.on('update-progress', function (percentage) {
+    console.log(percentage);
+    document.getElementById("bar").style.width = (percentage * 100) + "%";
+    document.getElementById("bar").innerHTML = "Downloading " + parseInt(percentage * 100) + "%";
 });
 
 ipcMain.on('restart_app', () => {

@@ -1,4 +1,4 @@
 version: 25.1.11
 path: accountancy-app-25.1.11 Setup.exe
 sha512: Dj51I0q8aPQ3ioaz9LMqGYujAYRbDNblAQbodDRXAMxmY6hsHqEl3F6SvhfJj5oPhcqdX1ldsgEvfMNXGUXBIw==
-stagingPercentage: 10
+stagingPercentage: null

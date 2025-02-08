@@ -4,12 +4,40 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
+    name: "accountancy-app"
+  },
+  hooks: {
+    postPackage: async (forgeConfig, options) => {
+      console.log("✅ postPackage hook triggered!");
+      console.log("Package Directory:", options.outputPaths);
+
+      // Example: Copy a file after packaging
+      const fs = require('fs-extra');
+      const path = require('path');
+
+      const outputPath = options.outputPaths[0]; // Path to the packaged app
+      const extraFile = path.join(__dirname, "dev-app-update.yml");
+      const destination = path.join(outputPath, "resources\\app-update.yml");
+
+      await fs.copy(extraFile, destination);
+      console.log("📂 Extra file copied to:", destination);
+    }
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        name: "accountancy-app",
+        setupExe: "accountancy-app-installer.exe",
+        iconUrl: "https://accountancyapp.in/assets/icon.ico", // Must be a valid URL (Required for Squirrel)
+        noMsi: true, // Prevents MSI generation
+        shortcutName: "accountancy-app", // Shortcut name
+        menuCategory: true, // Add to Start Menu under a category
+        desktopShortcut: true, // Create Desktop Shortcut
+        startMenuShortcut: true, // Create Start Menu Shortcut
+        useMultipleRangeRequests: false, // Disable differential updates
+      }
     },
     {
       name: '@electron-forge/maker-zip',
@@ -41,4 +69,12 @@ module.exports = {
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
     }),
   ],
+  build: {
+    extraResources: [
+      {
+        from: "dev-app-update.yml", // Local file in your project
+        to: "app-update.yml" // Destination inside packaged app
+      }
+    ]
+  }
 };

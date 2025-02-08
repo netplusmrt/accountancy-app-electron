@@ -20,12 +20,27 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.6.1",
     "@electron-forge/plugin-fuses": "^7.6.1",
     "@electron/fuses": "^1.8.0",
-    "electron": "^34.0.2"
+    "electron": "^34.0.2",
+    "electron-debug": "^4.1.0"
   },
   "dependencies": {
     "electron-dl": "^4.0.0",
     "electron-log": "^5.3.0",
     "electron-squirrel-startup": "^1.0.1",
     "electron-updater": "^6.3.9"
+  },
+  "build": {
+    "extraResources": [
+      {
+        "from": "dev-app-update.yml",
+        "to": "app-update.yml"
+      }
+    ],
+    "nsis": {
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "AccountancyApp",
+      "differentialPackage": false
+    }
   }
 }

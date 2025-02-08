@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1738773243227,
+  "timestamp": 1738943847377,
   "index": "./index.html",
   "assetGroups": [
     {
@@ -96,7 +96,7 @@
     "./assets/css/bill.css": "2095e9ed545aa0ffe925a968b83b30d17685b2b0",
     "./assets/css/custom-material.css": "a7a35551498b07406744de0a4de9dbb4c81001d3",
     "./assets/css/invoice.css": "b6381888ee2e6769c8257b6ee9d69537e73a6371",
-    "./assets/css/main.css": "e0a464ca5ef68ec486c8b10a203b03a54d8b98ab",
+    "./assets/css/main.css": "0d7f4a827351457c27671785c463573939504173",
     "./assets/css/print.css": "e222471565d08d4fa57707c69a17bd674cb1af0b",
     "./assets/css/quote.css": "2bf2a51862b9d58eaa99dc816e8ebc45c11afd85",
     "./assets/css/report.css": "47fcc6856e21654cc6e5643f243ddf3bbb778066",
@@ -167,7 +167,7 @@
     "./fontawesome-webfont.cf011583fb81df9f.woff": "28b782240b3e76db824e12c02754a9731a167527",
     "./fontawesome-webfont.da909aa098b0ee2d.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
     "./fontawesome-webfont.e9955780856cf8aa.woff2": "d6f48cba7d076fb6f2fd6ba993a75b9dc1ecbf0c",
-    "./index.html": "febd754ead9fc99db5f78f0216df3108059f0162",
+    "./index.html": "438ee2ac11169a8c8e5b1ff6b3ce5b757d3c9654",
     "./manifest.webmanifest": "94683aad86128ea979fda4a9f50205211a379724"
   },
   "navigationUrls": [
