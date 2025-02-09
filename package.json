@@ -1,7 +1,7 @@
 {
-  "name": "AccountancyApp",
-  "version": "25.1.13",
-  "description": "AccountancyApp",
+  "name": "accountancy-app",
+  "version": "25.1.14",
+  "description": "Accountancy App",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -9,7 +9,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
-  "author": "Net Plus Software Solutions",
+  "author": "AccountancyApp",
   "license": "ISC",
   "devDependencies": {
     "@electron-forge/cli": "^7.6.1",
@@ -28,25 +28,5 @@
     "electron-log": "^5.3.0",
     "electron-squirrel-startup": "^1.0.1",
     "electron-updater": "^6.3.9"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "AccountancyApp",
-            "icon": "assets/icon.ico",
-            "setupExe": "AccountancyApp-${version} Setup.exe",
-            "setupIcon": "assets/icon.ico",
-            "noMsi": true,
-            "createDesktopShortcut": true,
-            "createStartMenuShortcut": true,
-            "shortcutName": "AccountancyApp"
-          }
-        }
-      ]
-    }
   }
 }

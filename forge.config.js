@@ -4,6 +4,7 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
+     name: "AccountancyApp"
   },
   hooks: {
     postPackage: async (forgeConfig, options) => {
@@ -27,6 +28,14 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
+        name: "AccountancyApp",
+        setupExe: "AccountancyApp-installer.exe",
+        setupIcon: "assets/icon.ico", // Installer icon
+        shortcutName: "AccountancyApp", // Name for the shortcut
+        menuCategory: true, // Places it under a Start Menu category
+        createDesktopShortcut: true, // Ensures a desktop shortcut is created
+        createStartMenuShortcut: true, // Ensures a Start Menu shortcut is created
+        noMsi: true, // Avoids creating an MSI installer
       }
     },
     {

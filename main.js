@@ -52,10 +52,8 @@ function createWindow () {
     log.info("Function called from Renderer:", data);
     const feedURL = `${server}/update`
     log.info(feedURL);
-    autoUpdater.setOption({
-      forceDevUpdateConfig: true,
-      disableWebInstaller: true
-    });
+    autoUpdater.forceDevUpdateConfig = true;
+    autoUpdater.disableWebInstaller = true;
     autoUpdater.setFeedURL(feedURL);
     autoUpdater.checkForUpdates();
   });
