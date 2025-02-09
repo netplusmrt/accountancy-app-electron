@@ -38,8 +38,8 @@
           "config": {
             "name": "AccountancyApp",
             "icon": "assets/icon.ico",
-            "setupIcon": "assets/icon.ico",
             "setupExe": "AccountancyApp-${version} Setup.exe",
+            "setupIcon": "assets/icon.ico",
             "noMsi": true,
             "createDesktopShortcut": true,
             "createStartMenuShortcut": true,
