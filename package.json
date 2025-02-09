@@ -1,7 +1,7 @@
 {
-  "name": "accountancy-app",
-  "version": "25.1.11",
-  "description": "accountancy-app",
+  "name": "AccountancyApp",
+  "version": "25.1.13",
+  "description": "AccountancyApp",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -29,18 +29,24 @@
     "electron-squirrel-startup": "^1.0.1",
     "electron-updater": "^6.3.9"
   },
-  "build": {
-    "extraResources": [
-      {
-        "from": "dev-app-update.yml",
-        "to": "app-update.yml"
-      }
-    ],
-    "nsis": {
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "AccountancyApp",
-      "differentialPackage": false
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "AccountancyApp",
+            "icon": "assets/icon.ico",
+            "setupIcon": "assets/icon.ico",
+            "setupExe": "AccountancyApp-${version} Setup.exe",
+            "noMsi": true,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true,
+            "shortcutName": "AccountancyApp"
+          }
+        }
+      ]
     }
   }
 }

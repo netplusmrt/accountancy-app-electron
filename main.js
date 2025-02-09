@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, dialog, ipcMain} = require('electron')
+const squirrelStartup = require('electron-squirrel-startup');
 // const {download} = require('electron-dl');
 const path = require('path')
 const fs = require('fs');
@@ -8,12 +9,17 @@ const log = require("electron-log");
 const url = require("url");
 const server = 'https://www.accountancyapp.in'
 
+if (squirrelStartup) {
+  app.quit();
+}
+
 let mainWindow
 
 function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    icon: path.join(__dirname, 'assets', 'icon.ico'), // Use `.ico` for Windows
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true
@@ -46,9 +52,11 @@ function createWindow () {
     log.info("Function called from Renderer:", data);
     const feedURL = `${server}/update`
     log.info(feedURL);
-    autoUpdater.forceDevUpdateConfig = true;
-    autoUpdater.autoDownload = true
-    autoUpdater.setFeedURL(feedURL)
+    autoUpdater.setOption({
+      forceDevUpdateConfig: true,
+      disableWebInstaller: true
+    });
+    autoUpdater.setFeedURL(feedURL);
     autoUpdater.checkForUpdates();
   });
 }
@@ -57,7 +65,14 @@ app.on('ready', createWindow)
 
 app.on('ready', function()  {
   autoUpdater.logger = log;
-  autoUpdater.logger.transports.file.level = "info"
+  autoUpdater.logger.transports.file.level = "info";
+
+  const appPath = path.dirname(process.execPath);
+  app.setLoginItemSettings({
+    openAtLogin: true, // Ensures it runs on startup if needed
+    path: appPath,
+    args: [],
+  });
 });
 
 app.on('window-all-closed', function () {

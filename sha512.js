@@ -9,6 +9,6 @@ function getSHA512(filePath) {
 }
 
 // Change this to your actual output file
-const filePath = "out/make/squirrel.windows/x64/accountancy-app-25.1.11 Setup.exe";
+const filePath = "out/make/squirrel.windows/x64/AccountancyApp-25.1.13 Setup.exe";
 
 console.log(`SHA-512: ${getSHA512(filePath)}`);

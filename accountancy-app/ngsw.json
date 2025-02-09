@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1738943847377,
+  "timestamp": 1739010405953,
   "index": "./index.html",
   "assetGroups": [
     {
@@ -167,7 +167,7 @@
     "./fontawesome-webfont.cf011583fb81df9f.woff": "28b782240b3e76db824e12c02754a9731a167527",
     "./fontawesome-webfont.da909aa098b0ee2d.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
     "./fontawesome-webfont.e9955780856cf8aa.woff2": "d6f48cba7d076fb6f2fd6ba993a75b9dc1ecbf0c",
-    "./index.html": "438ee2ac11169a8c8e5b1ff6b3ce5b757d3c9654",
+    "./index.html": "3b0003f3fd18fe7f72171d5231f799fc8db3875a",
     "./manifest.webmanifest": "94683aad86128ea979fda4a9f50205211a379724"
   },
   "navigationUrls": [
