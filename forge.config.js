@@ -16,7 +16,6 @@ module.exports = {
       config: {
         name: "AccountancyApp",
         setupExe: "AccountancyApp-installer.exe",
-        icon: "assets/icon",
         setupIcon: "assets/icon.ico", // Installer icon
         shortcutName: "AccountancyApp", // Name for the shortcut
         menuCategory: true, // Places it under a Start Menu category
@@ -26,7 +25,8 @@ module.exports = {
       }
     },
     {
-      name: '@electron-forge/maker-zip'
+      name: '@electron-forge/maker-zip',
+      platforms: ['darwin'],
     },
     {
       name: '@electron-forge/maker-deb',

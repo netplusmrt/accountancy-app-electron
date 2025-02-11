@@ -22,6 +22,14 @@
 				"kind": "build",
 				"isDefault": false
 			}
+		},
+		{
+			"type": "npm",
+			"script": "publish",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: publish",
+			"detail": "electron-forge publish"
 		}
 	]
 }
