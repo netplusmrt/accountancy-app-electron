@@ -95,12 +95,7 @@ autoUpdater.on('update-available', () => {
 });
 
 autoUpdater.on('update-not-available', () => {
-  dialog.showMessageBox({
-    title: 'No Updates',
-    message: 'Current version is up-to-date.'
-  })
-  // updater.enabled = true
-  updater = null
+  mainWindow.webContents.send('update_not_available');
 })
 
 autoUpdater.on('download-progress', (progressObj) => {
