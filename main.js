@@ -1,7 +1,5 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, dialog, ipcMain} = require('electron')
-const squirrelStartup = require('electron-squirrel-startup');
-// const {download} = require('electron-dl');
 const path = require('path')
 const fs = require('fs');
 const { autoUpdater } = require('electron-updater')
@@ -9,9 +7,6 @@ const log = require("electron-log");
 const url = require("url");
 const server = 'https://www.accountancyapp.in'
 
-if (squirrelStartup) {
-  app.quit();
-}
 
 let mainWindow
 
@@ -41,8 +36,6 @@ function createWindow () {
     // mainWindow.webContents.openDevTools()
   }
 
-  mainWindow.maximize()
-
   mainWindow.on('closed', function () {
     mainWindow = null
   })
@@ -50,11 +43,12 @@ function createWindow () {
   // Handle the call from Renderer
   ipcMain.handle("execute-main-function", async (event, data) => {
     log.info("Function called from Renderer:", data);
-    const feedURL = `${server}/update`
-    log.info(feedURL);
+    // const feedURL = `${server}/update`
+    // log.info(feedURL);
+    mainWindow.maximize();
     autoUpdater.forceDevUpdateConfig = true;
     autoUpdater.disableWebInstaller = true;
-    autoUpdater.setFeedURL(feedURL);
+    // autoUpdater.setFeedURL(feedURL);
     autoUpdater.checkForUpdates();
   });
 }

@@ -1,34 +1,44 @@
 {
   "name": "accountancy-app",
-  "version": "25.1.14",
+  "version": "25.1.17",
   "description": "Accountancy App",
   "main": "main.js",
   "scripts": {
-    "start": "electron-forge start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish"
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "repository": "https://github.com/netplusmrt/accountancy-app-electron",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
+  "build": {
+    "appId": "com.netplusmrt.accountancyapp",
+    "productName": "AccountancyApp",
+    "icon": "assets/icon.ico",
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico",
+      "artifactName": "AccountancyApp-Setup-${version}.exe"
+    },
+    "directories": {
+      "output": "dist"
+    },
+    "publish": {
+      "provider": "github",
+      "releaseType": "release"
+    }
   },
   "author": "AccountancyApp",
   "license": "ISC",
   "devDependencies": {
-    "@electron-forge/cli": "^7.6.1",
-    "@electron-forge/maker-deb": "^7.6.1",
-    "@electron-forge/maker-rpm": "^7.6.1",
-    "@electron-forge/maker-squirrel": "^7.6.1",
-    "@electron-forge/maker-zip": "^7.6.1",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.6.1",
-    "@electron-forge/plugin-fuses": "^7.6.1",
-    "@electron-forge/publisher-github": "^7.6.1",
-    "@electron/fuses": "^1.8.0",
     "electron": "^34.1.1",
+    "electron-builder": "^25.1.8",
     "electron-debug": "^4.1.0"
   },
   "dependencies": {
-    "electron-dl": "^4.0.0",
     "electron-log": "^5.3.0",
-    "electron-squirrel-startup": "^1.0.1",
     "electron-updater": "^6.3.9"
   }
 }

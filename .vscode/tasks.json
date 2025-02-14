@@ -3,33 +3,22 @@
 	"tasks": [
 		{
 			"type": "npm",
-			"script": "package",
-			"problemMatcher": [],
-			"label": "npm: package",
-			"detail": "electron-forge package",
+			"script": "start",
 			"group": {
 				"kind": "build",
 				"isDefault": true
-			}
-		},
-		{
-			"type": "npm",
-			"script": "make",
+			},
 			"problemMatcher": [],
-			"label": "npm: make",
-			"detail": "electron-forge make",
-			"group": {
-				"kind": "build",
-				"isDefault": false
-			}
+			"label": "npm: start",
+			"detail": "electron ."
 		},
 		{
 			"type": "npm",
-			"script": "publish",
+			"script": "build",
 			"group": "build",
 			"problemMatcher": [],
-			"label": "npm: publish",
-			"detail": "electron-forge publish"
+			"label": "npm: build",
+			"detail": "electron-builder"
 		}
 	]
 }
