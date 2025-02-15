@@ -5,8 +5,6 @@ const fs = require('fs');
 const { autoUpdater } = require('electron-updater')
 const log = require("electron-log");
 const url = require("url");
-const server = 'https://www.accountancyapp.in'
-
 
 let mainWindow
 
@@ -49,7 +47,10 @@ function createWindow () {
     autoUpdater.forceDevUpdateConfig = true;
     autoUpdater.disableWebInstaller = true;
     // autoUpdater.setFeedURL(feedURL);
-    autoUpdater.checkForUpdates();
+
+    if (app.isPackaged) {
+      autoUpdater.checkForUpdates();
+    }
   });
 }
 
@@ -95,7 +96,7 @@ autoUpdater.on('update-available', () => {
 });
 
 autoUpdater.on('update-not-available', () => {
-  mainWindow.webContents.send('update_not_available');
+  log.info('update_not_available');
 })
 
 autoUpdater.on('download-progress', (progressObj) => {

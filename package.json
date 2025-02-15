@@ -1,13 +1,12 @@
 {
   "name": "accountancy-app",
-  "version": "25.2.15",
+  "version": "252.15.1",
   "description": "Accountancy App",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "electron .",
-    "build": "electron-builder",
-    "publish": "npx electron-builder --publish always"
+    "build": "electron-builder"
   },
   "repository": "https://github.com/netplusmrt/accountancy-app-electron",
   "publish": {
@@ -36,7 +35,8 @@
   "devDependencies": {
     "electron": "^34.1.1",
     "electron-builder": "^25.1.8",
-    "electron-debug": "^4.1.0"
+    "electron-debug": "^4.1.0",
+    "jest": "^29.7.0"
   },
   "dependencies": {
     "electron-log": "^5.3.0",
