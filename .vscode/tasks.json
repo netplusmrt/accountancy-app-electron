@@ -19,6 +19,14 @@
 			"problemMatcher": [],
 			"label": "npm: build",
 			"detail": "electron-builder"
-		}
+		},
+		{
+			"type": "npm",
+			"script": "publish",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: publish",
+			"detail": "npx electron-builder --publish always"
+		},
 	]
 }
