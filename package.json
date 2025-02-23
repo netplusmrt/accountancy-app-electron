@@ -1,6 +1,6 @@
 {
   "name": "accountancy-app",
-  "version": "252.15.1",
+  "version": "252.23.1",
   "description": "Accountancy App",
   "main": "main.js",
   "scripts": {
