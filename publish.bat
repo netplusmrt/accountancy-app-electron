@@ -20,7 +20,7 @@ echo =====================================
 
 cd /d E:\Apps\AccountancyApp\accountancy-app-ng16
 
-call npm run build-base-href
+call npm run build
 
 if %ERRORLEVEL% neq 0 (
     echo Angular build failed.
@@ -61,12 +61,30 @@ if %ERRORLEVEL% neq 0 (
 
 echo.
 echo =====================================
-echo Build and GitHub Release Completed Successfully
+echo Publishing FTP Release
+echo =====================================
+
+cd /d E:\Apps\AccountancyApp\accountancy-app-ng16
+
+call node publish-ftp.js
+
+if %ERRORLEVEL% neq 0 (
+    echo FTP publish failed.
+    pause
+    exit /b %ERRORLEVEL%
+)
+
+cd /d E:\Apps\AccountancyApp\accountancy-app-electron
+
+echo.
+echo =====================================
+echo Build and Release Completed Successfully
 echo =====================================
 echo.
 echo Angular App  : Build Successful
 echo Electron App : Build Successful
 echo GitHub       : Release Published
+echo FTP          : Release Published
 echo.
 
 pause

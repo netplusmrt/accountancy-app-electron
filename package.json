@@ -1,16 +1,17 @@
 {
   "name": "accountancy-app",
-  "version": "26.5.3102",
+  "version": "26.6.301",
   "description": "Accountancy App",
   "main": "main.js",
   "scripts": {
     "test": "jest",
     "set-version": "node set-version.js",
+    "fix-base": "node scripts/fix-base.js",
     "start": "electron .",
     "clean:accountancy-app": "if exist accountancy-app rmdir /s /q accountancy-app && mkdir accountancy-app",
     "clean": "rimraf dist && npm run clean:accountancy-app",
     "copy:angular-build": "npx copyfiles -u 4 ../accountancy-app-ng16/dist/accountancy-app/**/* accountancy-app",
-    "copy": "npm run clean && npm run copy:angular-build",
+    "copy": "npm run clean && npm run copy:angular-build && npm run fix-base",
     "publish": "npm run set-version && npm run clean && npm run copy && npx electron-builder --publish always",
     "build": "npm run set-version && npm run copy && electron-builder"
   },
