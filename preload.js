@@ -26,3 +26,14 @@ contextBridge.exposeInMainWorld("electron", {
     ipcRenderer.once(channel, (event, ...args) => callback(...args));
   }
 });
+
+contextBridge.exposeInMainWorld("secureStore", {
+  savePassword: (account, password) =>
+    ipcRenderer.invoke("keytar-save-password", { account, password }),
+  getPassword: (account) =>
+    ipcRenderer.invoke("keytar-get-password", account),
+  deletePassword: (account) =>
+    ipcRenderer.invoke("keytar-delete-password", account),
+  findCredentials: () =>
+    ipcRenderer.invoke("keytar-find-credentials")
+});

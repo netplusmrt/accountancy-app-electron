@@ -1,10 +1,13 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, dialog, ipcMain} = require('electron')
+const keytar = require('keytar')
 const path = require('path')
 const fs = require('fs');
 const { autoUpdater } = require('electron-updater')
 const log = require("electron-log");
 const url = require("url");
+
+const SERVICE_NAME = "AccountancyApp"
 
 let mainWindow
 
@@ -53,6 +56,22 @@ function createWindow () {
     }
   });
 }
+
+ipcMain.handle("keytar-save-password", async (_event, { account, password }) => {
+  return keytar.setPassword(SERVICE_NAME, account, password)
+})
+
+ipcMain.handle("keytar-get-password", async (_event, account) => {
+  return keytar.getPassword(SERVICE_NAME, account)
+})
+
+ipcMain.handle("keytar-delete-password", async (_event, account) => {
+  return keytar.deletePassword(SERVICE_NAME, account)
+})
+
+ipcMain.handle("keytar-find-credentials", async () => {
+  return keytar.findCredentials(SERVICE_NAME)
+})
 
 app.on('ready', createWindow)
 
