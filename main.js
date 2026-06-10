@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, dialog, ipcMain} = require('electron')
+const {app, BrowserWindow, dialog, ipcMain, Menu} = require('electron')
 const keytar = require('keytar')
 const path = require('path')
 const fs = require('fs');
@@ -20,6 +20,30 @@ function createWindow () {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true
     },
+  });
+
+  mainWindow.webContents.on('context-menu', (event, params) => {
+    const template = [
+      { role: 'undo', enabled: params.isEditable },
+      { role: 'redo', enabled: params.isEditable },
+      { type: 'separator' },
+      { role: 'cut', enabled: params.isEditable },
+      { role: 'copy', enabled: params.selectionText.length > 0 },
+      { role: 'paste', enabled: params.isEditable },
+      { role: 'selectAll' }
+    ];
+
+    if (!app.isPackaged) {
+      template.push(
+        { type: 'separator' },
+        {
+          label: 'Inspect Element',
+          click: () => mainWindow.webContents.inspectElement(params.x, params.y)
+        }
+      );
+    }
+
+    Menu.buildFromTemplate(template).popup({ window: mainWindow });
   });
 
   if (app.isPackaged) {
