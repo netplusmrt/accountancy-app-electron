@@ -6,12 +6,23 @@ const fs = require('fs');
 const { autoUpdater } = require('electron-updater')
 const log = require("electron-log");
 const url = require("url");
+const { updateUi } = require('./services/ui-updater');
 
 const SERVICE_NAME = "AccountancyApp"
 
 let mainWindow
 
-function createWindow () {
+async function createWindow () {
+
+  const uiFolder = path.join(app.getPath('userData'), 'ui');
+  const versionFile = path.join(app.getPath('userData'), 'ui-version.json');
+
+  try {
+    await updateUi(uiFolder, versionFile);
+  } catch (err) {
+    console.error('Update failed:', err);
+  }
+
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -46,14 +57,29 @@ function createWindow () {
     Menu.buildFromTemplate(template).popup({ window: mainWindow });
   });
 
+  const downloadedIndex = path.join(uiFolder, 'index.html');
+
   if (app.isPackaged) {
+    if (fs.existsSync(downloadedIndex)) {
+      console.log('Loading downloaded UI');
+      // mainWindow.loadFile(downloadedIndex);
       mainWindow.loadURL(
-      url.format({
+        url.format({
+          pathname: downloadedIndex,
+          protocol: "file:",
+          slashes: true
+        })
+      );
+    } else {
+      console.log('Loading bundled UI');
+      mainWindow.loadURL(
+        url.format({
           pathname: path.join(__dirname, `/accountancy-app/index.html`),
           protocol: "file:",
           slashes: true
         })
       );
+    }
   } else {
     log.info("Debug Mode: Running in development");
     mainWindow.loadURL("http://localhost:4200");

@@ -59,21 +59,6 @@ if %ERRORLEVEL% neq 0 (
     exit /b %ERRORLEVEL%
 )
 
-echo.
-echo =====================================
-echo Publishing FTP Release
-echo =====================================
-
-cd /d E:\Apps\AccountancyApp\accountancy-app-ng16
-
-call node publish-ftp.js
-
-if %ERRORLEVEL% neq 0 (
-    echo FTP publish failed.
-    pause
-    exit /b %ERRORLEVEL%
-)
-
 cd /d E:\Apps\AccountancyApp\accountancy-app-electron
 
 echo.
@@ -84,7 +69,6 @@ echo.
 echo Angular App  : Build Successful
 echo Electron App : Build Successful
 echo GitHub       : Release Published
-echo FTP          : Release Published
 echo.
 
 pause
