@@ -11,21 +11,62 @@ const { updateUi } = require('./services/ui-updater');
 const SERVICE_NAME = "AccountancyApp"
 
 let mainWindow
+let splashWindow
+
+function isPackagedMode() {
+  const forceValue = String(process.env.FORCE_PACKAGED || '').toLowerCase();
+  return app.isPackaged || forceValue === 'true' || forceValue === '1';
+}
+
+async function createSplashWindow() {
+  const splash = new BrowserWindow({
+    width: 700,
+    height: 500,
+    frame: false,
+    transparent: false,
+    resizable: false,
+    alwaysOnTop: true,
+    center: true,
+    show: true,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true
+    }
+  });
+
+  await splash.loadFile(path.join(__dirname, 'splash.html'));
+  return splash;
+}
 
 async function createWindow () {
 
   const uiFolder = path.join(app.getPath('userData'), 'ui');
   const versionFile = path.join(app.getPath('userData'), 'ui-version.json');
 
+  splashWindow = await createSplashWindow();
+
+  if (splashWindow && !splashWindow.isDestroyed()) {
+    splashWindow.webContents.send('ui-update-status', 'Checking for UI updates...');
+  }
+
   try {
-    await updateUi(uiFolder, versionFile);
+    await updateUi(uiFolder, versionFile, (progress) => {
+      if (splashWindow && !splashWindow.isDestroyed()) {
+        splashWindow.webContents.send('ui-download-progress', progress);
+      }
+    });
   } catch (err) {
     console.error('Update failed:', err);
+  }
+
+  if (splashWindow && !splashWindow.isDestroyed()) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    show: false,
     icon: path.resolve(__dirname, "assets/icon.ico"),
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
@@ -44,7 +85,7 @@ async function createWindow () {
       { role: 'selectAll' }
     ];
 
-    if (!app.isPackaged) {
+    if (!isPackagedMode()) {
       template.push(
         { type: 'separator' },
         {
@@ -59,10 +100,11 @@ async function createWindow () {
 
   const downloadedIndex = path.join(uiFolder, 'index.html');
 
-  if (app.isPackaged) {
+  console.log('Is Packed: ', isPackagedMode());
+
+  if (isPackagedMode()) {
     if (fs.existsSync(downloadedIndex)) {
       console.log('Loading downloaded UI');
-      // mainWindow.loadFile(downloadedIndex);
       mainWindow.loadURL(
         url.format({
           pathname: downloadedIndex,
@@ -87,6 +129,31 @@ async function createWindow () {
     // mainWindow.webContents.openDevTools()
   }
 
+  mainWindow.webContents.once('did-finish-load', async () => {
+    try {
+      if (splashWindow && !splashWindow.isDestroyed()) {
+        splashWindow.close();
+        splashWindow = null;
+      }
+
+      if (!mainWindow || mainWindow.isDestroyed()) {
+        return;
+      }
+
+      mainWindow.show();
+
+      await mainWindow.webContents.executeJavaScript(`
+        (async () => {
+          if (window.electron && typeof window.electron.invoke === 'function') {
+            await window.electron.invoke('execute-main-function', 'data');
+          }
+        })();
+      `);
+    } catch (err) {
+      log.error('Failed to initialize renderer logic:', err);
+    }
+  });
+
   mainWindow.on('closed', function () {
     mainWindow = null
   })
@@ -106,6 +173,14 @@ async function createWindow () {
     }
   });
 }
+
+ipcMain.handle('get-app-version', async () => {
+  return app.getVersion();
+});
+
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall();
+});
 
 ipcMain.handle("keytar-save-password", async (_event, { account, password }) => {
   return keytar.setPassword(SERVICE_NAME, account, password)

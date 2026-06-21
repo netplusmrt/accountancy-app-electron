@@ -17,24 +17,57 @@ async function getLatestRelease() {
   return response.data;
 }
 
-async function downloadFile(url, destination) {
+async function downloadFile(url, destination, onProgress) {
   const response = await axios({
     method: 'GET',
     url,
     responseType: 'stream'
   });
 
+  const total = parseInt(response.headers['content-length'], 10) || 0;
   const writer = fs.createWriteStream(destination);
+  let downloaded = 0;
+
+  response.data.on('data', (chunk) => {
+    downloaded += chunk.length;
+    if (onProgress) {
+      const percent = total > 0
+        ? Math.min(100, Math.max(0, (downloaded / total) * 100))
+        : 0;
+
+      onProgress({
+        transferred: downloaded,
+        total,
+        percent,
+        stage: 'downloading'
+      });
+    }
+  });
+
+  response.data.on('error', (error) => {
+    writer.destroy(error);
+  });
 
   response.data.pipe(writer);
 
   return new Promise((resolve, reject) => {
-    writer.on('finish', resolve);
+    writer.on('finish', () => {
+      if (onProgress) {
+        onProgress({
+          transferred: total || downloaded,
+          total: total || downloaded,
+          percent: 100,
+          stage: 'downloading'
+        });
+      }
+      resolve();
+    });
     writer.on('error', reject);
+    response.data.on('error', reject);
   });
 }
 
-async function updateUi(uiFolder, versionFile) {
+async function updateUi(uiFolder, versionFile, onProgress) {
   const localVersion = getLocalVersion(versionFile);
   const release = await getLatestRelease();
   const remoteVersion = release.tag_name.replace('ui-v','');
@@ -58,9 +91,27 @@ async function updateUi(uiFolder, versionFile) {
 
   console.log('Downloading UI update...');
 
-  await downloadFile(zipAsset.browser_download_url, zipPath);
+  if (onProgress) {
+    onProgress({
+      transferred: 0,
+      total: 0,
+      percent: 0,
+      stage: 'downloading'
+    });
+  }
+
+  await downloadFile(zipAsset.browser_download_url, zipPath, onProgress);
 
   console.log('Extracting UI...');
+
+  if (onProgress) {
+    onProgress({
+      transferred: 0,
+      total: 0,
+      percent: 100,
+      stage: 'extracting'
+    });
+  }
 
   const zip = new AdmZip(zipPath);
 

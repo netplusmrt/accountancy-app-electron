@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(circle at center,
+                    #132b52 0%,
+                    #09162d 45%,
+                    #020914 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 183, 255, 0.08);
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+        }
+
+        .logo {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 25px rgba(0, 183, 255, 0.6));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .app-name {
+            font-size: 48px;
+            font-weight: 300;
+            color: #eaf8ff;
+            margin-bottom: 15px;
+        }
+
+        .tagline {
+            color: #9fb3c8;
+            font-size: 18px;
+            margin-bottom: 50px;
+        }
+
+        .progress-container {
+            width: 450px;
+            max-width: 80vw;
+            margin: auto;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: #00b7ff;
+            border-radius: 50px;
+            box-shadow: 0 0 15px #00b7ff;
+            transition: width 0.2s ease;
+        }
+
+        .loading-text {
+            margin-top: 15px;
+            color: #9fb3c8;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .status-text {
+            margin-top: 12px;
+            color: #d7f4ff;
+            font-size: 18px;
+        }
+
+        .version {
+            position: fixed;
+            bottom: 20px;
+            right: 25px;
+            color: #6f8298;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow"></div>
+
+    <div class="container">
+
+        <img src="./assets/logo.png" alt="Application Logo" class="logo">
+
+        <div class="app-name">
+            Accountancy App
+        </div>
+
+        <div class="tagline">
+            Initializing application...
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress-fill"></div>
+            </div>
+
+            <div class="loading-text">
+                <span id="progress-text">0%</span>
+                <span id="stage-text"></span>
+            </div>
+
+            <div id="status-text" class="status-text">Preparing your workspace...</div>
+        </div>
+
+    </div>
+
+    <div class="version">
+        Version <span id="app-version">loading...</span>
+    </div>
+
+    <script src="./renderer.js"></script>
+
+</body>
+</html>

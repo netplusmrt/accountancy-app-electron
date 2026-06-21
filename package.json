@@ -1,6 +1,6 @@
 {
   "name": "accountancy-app",
-  "version": "26.6.2102",
+  "version": "26.6.2103",
   "description": "Accountancy App",
   "main": "main.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "set-version": "node set-version.js",
     "fix-base": "node scripts/fix-base.js",
     "start": "electron .",
+    "start:forced": "cross-env FORCE_PACKAGED=true electron .",
     "electron:watch": "wait-on http://localhost:4200 && nodemon --watch electron --ext ts --exec \"electron .\"",
     "dev": "concurrently \"npm run electron:watch\" \"cd ../accountancy-app-ng16 && npm start\"",
     "clean:accountancy-app": "if exist accountancy-app rmdir /s /q accountancy-app && mkdir accountancy-app",
@@ -45,6 +46,7 @@
     "concurrently": "^10.0.3",
     "electron": "^34.1.1",
     "electron-builder": "^25.1.8",
+    "cross-env": "^7.0.0",
     "electron-debug": "^4.1.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.14",
