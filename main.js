@@ -6,12 +6,14 @@ const fs = require('fs');
 const { autoUpdater } = require('electron-updater')
 const log = require("electron-log");
 const url = require("url");
+const { pathToFileURL } = require("url");
 const { updateUi } = require('./services/ui-updater');
 
 const SERVICE_NAME = "AccountancyApp"
 
 let mainWindow
 let splashWindow
+let previewWindow
 
 function isPackagedMode() {
   const forceValue = String(process.env.FORCE_PACKAGED || '').toLowerCase();
@@ -197,6 +199,68 @@ ipcMain.handle("keytar-delete-password", async (_event, account) => {
 ipcMain.handle("keytar-find-credentials", async () => {
   return keytar.findCredentials(SERVICE_NAME)
 })
+
+// Print Preview
+let generatedPdfPath = null;
+ipcMain.handle(
+  'print-preview',
+  async (event) => {
+    const sourceWebContents = event.sender && !event.sender.isDestroyed()
+      ? event.sender
+      : mainWindow?.webContents;
+
+    if (!sourceWebContents || sourceWebContents.isDestroyed()) {
+      throw new Error('No active page available for print preview');
+    }
+
+    const pdfBuffer = await sourceWebContents.printToPDF({
+      printBackground: true,
+      landscape: false,
+      pageSize: 'A4'
+    });
+
+    generatedPdfPath = path.join(
+      app.getPath('temp'),
+      `invoice-${Date.now()}.pdf`
+    );
+
+    fs.writeFileSync(generatedPdfPath, pdfBuffer);
+
+    openPreviewWindow(generatedPdfPath);
+  }
+);
+
+function openPreviewWindow(pdfPath) {
+  if (previewWindow && !previewWindow.isDestroyed()) {
+    previewWindow.show();
+    previewWindow.focus();
+    return;
+  }
+
+  previewWindow = new BrowserWindow({
+    width: 1200,
+    height: 900,
+    parent: mainWindow || undefined,
+    autoHideMenuBar: true,
+    show: true,
+    title: 'Invoice Preview',
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+  });
+
+  previewWindow.on('closed', () => {
+    previewWindow = null;
+  });
+
+  const previewUrl = pathToFileURL(pdfPath).toString();
+
+  previewWindow.loadFile(path.join(__dirname, 'preview.html'), {
+    query: {
+      pdf: previewUrl
+    }
+  });
+}
 
 app.on('ready', createWindow)
 
